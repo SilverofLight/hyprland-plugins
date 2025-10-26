@@ -50,10 +50,10 @@ APICALL EXPORT PLUGIN_DESCRIPTION_INFO PLUGIN_INIT(HANDLE handle) {
     HyprlandAPI::addConfigValue(PHANDLE, "plugin:hyprscrolling:follow_focus", Hyprlang::INT{1});
     HyprlandAPI::addConfigValue(PHANDLE, "plugin:hyprscrolling:explicit_column_widths", Hyprlang::STRING{"0.333, 0.5, 0.667, 1.0"});
     HyprlandAPI::addLayout(PHANDLE, "scrolling", g_pScrollingLayout.get());
+    HyprlandAPI::addConfigValue(PHANDLE, "plugin:hyprscrolling:disable_notification",  Hyprlang::INT{0});
 
-    if (!success) {
-        HyprlandAPI::addNotification(PHANDLE, "[hyprscrolling] Failure in initialization: failed to register dispatchers", CHyprColor{1.0, 0.2, 0.2, 1.0}, 5000);
-        throw std::runtime_error("[hs] Dispatchers failed");
+    if (!HyprlandAPI::getConfigValue(PHANDLE, "plugin:hyprwinwrap:disable_notification")) {
+        HyprlandAPI::addNotification(PHANDLE, "[hyprwinwrap] Initialized successfully!", CHyprColor{0.2, 1.0, 0.2, 1.0}, 5000);
     }
 
     return {"hyprscrolling", "A plugin to add a scrolling layout to hyprland", "Vaxry", "1.0"};
